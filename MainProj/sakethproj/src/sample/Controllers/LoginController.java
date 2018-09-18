@@ -54,7 +54,9 @@ public class LoginController implements Initializable {
 
                     swap.changeScene("Views/Home.fxml", contentlogin);
                 }
-                else { Alert alert = new Alert(Alert.AlertType.ERROR, "User ID or Password Wrong" , ButtonType.CLOSE);}
+                else { Alert alert = new Alert(Alert.AlertType.ERROR, "User ID or Password Wrong" , ButtonType.CLOSE);
+                    alert.showAndWait();
+                    return;}
 
             } catch (IOException e) { Alert alert = new Alert(Alert.AlertType.ERROR, "Unable to save Details : " + e.getMessage(), ButtonType.CLOSE);
                 alert.showAndWait();
