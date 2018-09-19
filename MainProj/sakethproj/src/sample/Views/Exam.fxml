@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="content" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="959.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.HomeController">
+<AnchorPane fx:id="content" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="959.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.HomeController">
     <children>
         <Pane layoutY="-2.0" prefHeight="139.0" prefWidth="944.0" style="-fx-background-color: #2D75E8;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0">
             <children>
@@ -104,7 +104,7 @@
                 </Pane>
          </children>
         </GridPane>
-      <Button fx:id="examBut" layoutX="427.0" layoutY="540.0" mnemonicParsing="false" onAction="#startExam" prefHeight="25.0" prefWidth="105.0" text="Start Exam" />
+      <Button layoutX="427.0" layoutY="540.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" text="Start Exam" />
       <Label fx:id="userLbl" layoutX="14.0" layoutY="315.0" prefHeight="42.0" prefWidth="940.0" text="Welcome to the Exam, click on any section to see the rules and if you are ready click the Start Exam Button">
          <font>
             <Font name="Bookman Old Style Bold" size="16.0" />
