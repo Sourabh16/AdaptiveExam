@@ -57,12 +57,13 @@ public class HomeController implements Initializable {
         }
 
     }
+
     @FXML
     private void startExam(ActionEvent actionEvent)
     {
         SwapScreen swap=new SwapScreen();
         try {
-            swap.changeScene("Views/Register.fxml",content);
+            swap.changeScene("Views/Exam.fxml",content);
         } catch (IOException e) {
             e.printStackTrace();
         }

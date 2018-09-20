@@ -1,4 +1,4 @@
 package sample.Controllers;
 
-public class ExamController {
+public class ListeningExam {
 }

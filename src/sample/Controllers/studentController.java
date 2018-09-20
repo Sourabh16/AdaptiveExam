@@ -138,11 +138,12 @@ public class studentController implements Initializable {
         {
             studentIDText.clear();
             studentNameText.clear();
-            institutionNameText.clear();
+            //institutionNameText.clear();
             termsBox.setSelected(false);
 
         }
     }
+
 
 
 

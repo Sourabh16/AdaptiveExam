@@ -42,7 +42,7 @@ public void connectiondb() throws SQLException, ClassNotFoundException {
 
 
     //DB Execute Query Operation
-    public static ResultSet dbExecuteQuery(String queryStmt) throws SQLException, ClassNotFoundException {
+    public  ResultSet dbExecuteQuery(String queryStmt) throws SQLException, ClassNotFoundException {
         //Declare statement, resultSet and CachedResultSet as null
         Statement stmt = null;
         ResultSet resultSet = null;
@@ -85,7 +85,7 @@ public void connectiondb() throws SQLException, ClassNotFoundException {
 
 
     //DB Execute Update (For Update/Insert/Delete) Operation
-    public static void dbExecuteUpdate(String sqlStmt) throws SQLException, ClassNotFoundException {
+    public  static void dbExecuteUpdate(String sqlStmt) throws SQLException, ClassNotFoundException {
         //Declare statement as null
         Statement stmt = null;
         try {
