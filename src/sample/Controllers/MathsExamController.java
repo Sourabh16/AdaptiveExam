@@ -2,12 +2,17 @@ package sample.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import sample.Main;
 import sample.Utility.*;
 
 import java.io.IOException;
@@ -30,7 +35,7 @@ public class MathsExamController implements Initializable {
     @FXML
     private AnchorPane content;
 
-    private int score=0,mathsScore=0,queCount=0;
+    private int score=0,mathsScore=0,queCount=0,overallScore=0;
 
     @FXML
     private TextField answerTbox;
@@ -41,6 +46,12 @@ public class MathsExamController implements Initializable {
     private String QueryEasy="Select Top 1 * from Maths where QType='Easy' order by newid()";
     private String QueryHard="Select Top 1 * from Maths where QType='Hard' order by newid()";
     private ResultSet rs;
+
+    public void store()
+    {
+        Main.overallScoreGlobal=Integer.parseInt(scoreLbl.getText());
+        Main.mathsScoreGlobal=Integer.parseInt(scoreLbl.getText());
+    }
 
     @FXML
     public void MediumQue()
@@ -163,6 +174,7 @@ public class MathsExamController implements Initializable {
             if(MatchAnswer())
             {
                 score += 2;
+
                 MediumQue();
             }
             else{EasyQue();}
@@ -173,6 +185,7 @@ public class MathsExamController implements Initializable {
             if(MatchAnswer())
             {
                 score += 5;
+
                 HardQue();
             }
             else{EasyQue();}
@@ -182,6 +195,7 @@ public class MathsExamController implements Initializable {
             if(MatchAnswer())
             {
                 score += 10;
+
                 HardQue();
             }
             else{MediumQue();}
@@ -189,9 +203,32 @@ public class MathsExamController implements Initializable {
         }
         else if(nxtButton.getText().equals("Submit"))
         {
-            SwapScreen swap=new SwapScreen();
+            if(qType.getText().equals("Easy")) {
+                if (MatchAnswer()) {
+                    score += 2;
+                }
+            }
+            else if(qType.getText().equals("Medium")) {
+                if (MatchAnswer()) {
+                    score += 5;
+                }
+            }
+            else if(qType.getText().equals("Hard")) {
+                if (MatchAnswer())
+                {   score += 10;}
+            }
+            store();
+            //SwapScreen swap=new SwapScreen();
             try {
-                swap.changeScene("Views/ImageExam.fxml",content);
+                FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/ImageExam.fxml"));
+                Parent pa = (AnchorPane) loader.load();
+                ImageExamController out=new ImageExamController();
+                out=loader.getController();
+                out.vault(Main.overallScoreGlobal,Main.mathsScoreGlobal);
+                Scene newScene = new Scene(pa);
+                Stage newStage = (Stage) content.getScene().getWindow();
+                newStage.setScene(newScene);
+                newStage.show();
             } catch (IOException e) {
                 e.printStackTrace();
             }

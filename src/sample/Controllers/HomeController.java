@@ -20,6 +20,9 @@ import javafx.scene.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.Reflection;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.*;
@@ -38,18 +41,23 @@ import sample.Utility.*;
 public class HomeController implements Initializable {
 
     @FXML
-    private Label time,date,mathsLbl,imagelbl,writingLbl,spellLbl,listenLbl;
+    private Label time,date;
+
+    @FXML
+    private ImageView img1,img2,img3,img4,img5;
+
     private int  second,minute,hour;
 
     @FXML
     private AnchorPane content;
+
 
     //Display Terms and Conditions
     @FXML
     private void ConditionsDisplay (MouseEvent mouseEvent)
     {
 
-        if(mouseEvent.getSource()==mathsLbl || mouseEvent.getSource()==imagelbl || mouseEvent.getSource()==writingLbl || mouseEvent.getSource()==spellLbl||mouseEvent.getSource()==listenLbl )
+        if(mouseEvent.getSource()==img1 || mouseEvent.getSource()==img2 || mouseEvent.getSource()==img3 || mouseEvent.getSource()==img4||mouseEvent.getSource()==img5 )
         {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "1.Write atleast one question \n " + "2.All the Best", ButtonType.CLOSE);
             alert.showAndWait();
@@ -67,6 +75,57 @@ public class HomeController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void imageHover(MouseEvent mouseEvent)
+    {
+        //Reflection effect
+        Reflection reflection = new Reflection();
+
+        reflection.setFraction(0.7);
+        if(mouseEvent.getSource()==img1)
+        {
+            img1.setEffect(reflection);
+            img2.setEffect((null));
+            img3.setEffect((null));
+            img4.setEffect((null));
+            img5.setEffect((null));
+
+        }
+        else if(mouseEvent.getSource()==img2)
+        {
+            img2.setEffect((reflection));
+            img1.setEffect((null));
+            img3.setEffect((null));
+            img4.setEffect((null));
+            img5.setEffect((null));
+        }
+        else if(mouseEvent.getSource()==img3)
+        {
+            img3.setEffect((reflection));
+            img2.setEffect((null));
+            img1.setEffect((null));
+            img4.setEffect((null));
+            img5.setEffect((null));
+        }
+        else if(mouseEvent.getSource()==img4)
+        {
+            img4.setEffect((reflection));
+            img2.setEffect((null));
+            img3.setEffect((null));
+            img1.setEffect((null));
+            img5.setEffect((null));
+        }
+        else if(mouseEvent.getSource()==img5)
+        {
+            img5.setEffect((reflection));
+            img2.setEffect((null));
+            img3.setEffect((null));
+            img4.setEffect((null));
+            img1.setEffect((null));
+        }
+
     }
 
 

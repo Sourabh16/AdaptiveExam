@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import sample.Main;
 import sample.Utility.FileUtility;
 import sample.Utility.SwapScreen;
 
@@ -32,7 +33,7 @@ public class SpellingExamController implements Initializable {
     private boolean isHelpUsed = false;
 
     @FXML
-    private Label qLabel, qType, scoreLbl, lblSpellHint;
+    private Label qLabel, qType, scoreLbl, lblSpellHint,overallLbl,mathslbl,imgScoreLbl,ListeningLbl;
     @FXML
     private AnchorPane content;
     private int score = 0, queCount = 0;
@@ -46,6 +47,10 @@ public class SpellingExamController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         try {
+            overallLbl.setText(String.valueOf(Main.overallScoreGlobal));
+            mathslbl.setText(String.valueOf(Main.mathsScoreGlobal));
+            imgScoreLbl.setText(String.valueOf(Main.imageScoreGlobal));
+            ListeningLbl.setText(String.valueOf(Main.listeningScoreGlobal));
             tenSecondsHelpTimer = new Timeline(new KeyFrame(Duration.seconds(20),
                     event -> {
                         System.out.println("this is 30 seconds help timer");
@@ -154,7 +159,9 @@ public class SpellingExamController implements Initializable {
 
             SwapScreen swap = new SwapScreen();
             try {
-                swap.changeScene("Views/ImageExam.fxml", content);
+                Main.overallScoreGlobal=Main.overallScoreGlobal+score;
+                Main.spellingScoreGlobal=score;
+                swap.changeScene("Views/Scorecard.fxml", content);
             } catch (IOException e) {
                 e.printStackTrace();
             }

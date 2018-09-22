@@ -51,7 +51,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="912.0" layoutY="207.0" prefHeight="42.0" prefWidth="81.0" text="Score:">
+      <Label layoutX="844.0" layoutY="207.0" prefHeight="42.0" prefWidth="149.0" text="MathsScore:">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>

@@ -2,7 +2,10 @@ package sample.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -15,6 +18,8 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import sample.Main;
 import sample.Utility.SwapScreen;
 import sample.Utility.dbconnection;
 
@@ -37,7 +42,7 @@ private MediaPlayer audioPlayer;
     private Label qType;
 
     @FXML
-    private Label qCount,scoreLbl;
+    private Label qCount,scoreLbl,overAllscoreLbl,MatLb,imgLbl,matLbl;
 
     @FXML
     private AnchorPane content;
@@ -47,7 +52,7 @@ private MediaPlayer audioPlayer;
 
    // private String answer;
 
-    private int score=0,mathsScore=0,queCount=0;
+    private int score=0,mathsScore=0,queCount=0,imageScore,overallScore;
     private ResultSet rs;
     private String radioAnswer;
 
@@ -234,9 +239,27 @@ private MediaPlayer audioPlayer;
                 }
 
             } else if (nxtBut.getText().equals("Submit")) {
+                if(qType.getText().equals("Easy")) {
+                    if (MatchAnswer(answer)) {
+                        score += 2;
+                    }
+                }
+                else if(qType.getText().equals("Medium")) {
+                    if (MatchAnswer(answer)) {
+                        score += 5;
+                    }
+                }
+                else if(qType.getText().equals("Hard")) {
+                    if (MatchAnswer(answer))
+                    {   score += 10;}
+                }
+                store();
                 SwapScreen swap = new SwapScreen();
                 try {
-                    swap.changeScene("Views/Home.fxml", content);
+                    Main.listeningScoreGlobal=score;
+                    Main.overallScoreGlobal=Main.overallScoreGlobal+score;
+                   // FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/SpellingExam.fxml"));
+                  swap.changeScene("Views/SpellingExam.fxml",content);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -297,6 +320,26 @@ private MediaPlayer audioPlayer;
             }
 
         }
+
+    }
+
+    public void vault(int overallScore,int mathsScore,int ImgScore)
+    {
+
+        overAllscoreLbl.setText(String.valueOf(overallScore));
+        matLbl.setText(String.valueOf(mathsScore));
+        imgLbl.setText(String.valueOf(ImgScore));
+
+        System.out.println(overallScore);
+    }
+
+    public void store()
+    {
+        //int value=Integer.parseInt(overAllscoreLbl.getText());
+        Main.mathsScoreGlobal=Integer.parseInt(matLbl.getText());
+        Main.imageScoreGlobal=Integer.parseInt(imgLbl.getText());
+        Main.listeningScoreGlobal=score;
+        Main.overallScoreGlobal=Main.overallScoreGlobal+score;
 
     }
 

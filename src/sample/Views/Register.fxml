@@ -48,10 +48,5 @@
                 <Image url="@../Images/logo.png" />
             </image>
         </ImageView>
-        <Label fx:id="labelClose" layoutX="747.0" layoutY="14.0" prefHeight="31.0" prefWidth="6.0" text="?" textFill="#fcf8f8">
-            <font>
-                <Font name="Calibri" size="36.0" />
-            </font>
-        </Label>
     </children>
 </AnchorPane>

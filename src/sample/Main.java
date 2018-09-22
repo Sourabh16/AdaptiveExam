@@ -14,13 +14,27 @@ import java.sql.SQLException;
 
 public class Main extends Application {
     static Stage stage=null;
+    public static int mathsScoreGlobal;
+    public static int imageScoreGlobal;
+    public static int listeningScoreGlobal;
+    public static int writingScoreGlobal;
+    public static int spellingScoreGlobal;
+    public static int overallScoreGlobal;
+
+
+
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("Views/ListeningExam.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Views/Register.fxml"));
         primaryStage.setTitle("Adaptive Exam  Assignment 1");
         primaryStage.setScene(new Scene(root, 800, 500));
         primaryStage.show();
     }
+
+
+
+
+
 
 
     public static void main(String[] args) {

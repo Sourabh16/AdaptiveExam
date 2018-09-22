@@ -62,5 +62,33 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <Label layoutX="932.0" layoutY="275.0" text="Maths Score" textFill="#46d326">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="mathslbl" layoutX="1037.0" layoutY="275.0" text="Label" />
+      <Label layoutX="932.0" layoutY="309.0" text="Image Score" textFill="#f28015">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="932.0" layoutY="339.0" text="Listening Score" textFill="#3a17c6">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="imgScoreLbl" layoutX="1037.0" layoutY="309.0" text="Label" />
+      <Label fx:id="ListeningLbl" layoutX="1037.0" layoutY="339.0" text="Label" />
+      <Label layoutX="832.0" layoutY="173.0" prefHeight="42.0" prefWidth="161.0" text="Overall Score:">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label id="lblSpellScore" fx:id="overallLbl" layoutX="1030.0" layoutY="165.0" prefHeight="59.0" prefWidth="88.0" text="00">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

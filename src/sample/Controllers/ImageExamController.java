@@ -3,13 +3,18 @@ package sample.Controllers;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import sample.Main;
 import sample.Utility.SwapScreen;
 import sample.Utility.dbconnection;
 
@@ -31,14 +36,14 @@ public class ImageExamController implements Initializable {
     private Label qType;
 
     @FXML
-    private Label qCount,scoreLbl;
+    private Label qCount,scoreLbl,overAllScoreLbl,mathsScoreLbl;
 
     @FXML
     private AnchorPane content;
 
     private String answer;
 
-    private int score=0,mathsScore=0,queCount=1;
+    private int score=0,queCount=1,matScore,ImgScore;
 
     String url1,url2;
 
@@ -51,6 +56,22 @@ public class ImageExamController implements Initializable {
     private String QueryHard="Select Top 1 * from ImageExam where QType='Hard' order by newid()";
     private ResultSet rs;
 
+    public void store()
+    {
+
+        Main.overallScoreGlobal=Integer.parseInt(overAllScoreLbl.getText())+score;
+        Main.mathsScoreGlobal=Integer.parseInt(mathsScoreLbl.getText());
+        Main.imageScoreGlobal=Integer.parseInt(scoreLbl.getText());
+    }
+    public void vault(int overallScore,int mathsScore)
+    {
+        Main.mathsScoreGlobal=Main.overallScoreGlobal;
+        overAllScoreLbl.setText(String.valueOf(Main.overallScoreGlobal));
+        mathsScoreLbl.setText(String.valueOf(Main.mathsScoreGlobal));
+
+        System.out.println(overallScore);
+    }
+
     @FXML
     public void MediumQue()
     {
@@ -58,7 +79,7 @@ public class ImageExamController implements Initializable {
         {
             SwapScreen swap=new SwapScreen();
             try {
-                swap.changeScene("Views/Home.fxml",content);
+                swap.changeScene("Views/ListeningExam.fxml",content);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -126,7 +147,7 @@ public class ImageExamController implements Initializable {
                 // Setting the image view
                 Imageview2.setImage(image2);
                 qType.setText(rs.getString("QType"));
-                qType.setTextFill(Color.web("Blue"));
+                qType.setTextFill(Color.web("RED"));
 
                 qCount.setText("Question."+String.valueOf(queCount)+":");
                 scoreLbl.setText(String.valueOf(score));
@@ -144,9 +165,19 @@ public class ImageExamController implements Initializable {
     {
         if(queCount==5)
         {
+            store();
             SwapScreen swap=new SwapScreen();
             try {
-                swap.changeScene("Views/Home.fxml",content);
+                FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/ListeningExam.fxml"));
+                Parent pa = (AnchorPane) loader.load();
+                ListeningExam out=new ListeningExam();
+                out=loader.getController();
+                ImgScore=score-matScore;
+                out.vault(Main.overallScoreGlobal,Main.mathsScoreGlobal,Main.imageScoreGlobal);
+                Scene newScene = new Scene(pa);
+                Stage newStage = (Stage) content.getScene().getWindow();
+                newStage.setScene(newScene);
+                newStage.show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
