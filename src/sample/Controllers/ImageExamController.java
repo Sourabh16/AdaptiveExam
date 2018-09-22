@@ -186,7 +186,7 @@ public class ImageExamController implements Initializable {
     @FXML
     private void changeQuestion(String check)
     {
-        if(qType.getText().equals("Easy")&& queCount<5)
+        if(qType.getText().equals("Easy")&& queCount<6)
         {
             if(MatchAnswer(check))
             {
@@ -196,7 +196,7 @@ public class ImageExamController implements Initializable {
             else{EasyQue();}
         }
 
-        else if(qType.getText().equals("Medium")&& queCount<5)
+        else if(qType.getText().equals("Medium")&& queCount<6)
         {
             if(MatchAnswer(check))
             {
@@ -205,7 +205,7 @@ public class ImageExamController implements Initializable {
             }
             else{EasyQue();}
         }
-        else if(qType.getText().equals("Hard")&& queCount<5)
+        else if(qType.getText().equals("Hard")&& queCount<6)
         {
             if(MatchAnswer(check))
             {
@@ -272,6 +272,7 @@ public class ImageExamController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+
         MediumQue();
     }
 }
