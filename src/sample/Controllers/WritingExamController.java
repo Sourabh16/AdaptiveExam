@@ -154,15 +154,19 @@ public class WritingExamController implements Initializable {
             scoreLbl.setText(String.valueOf(score));
             btnWritingSubmit.setText("Submit");
         } else if (btnWritingSubmit.getText().equalsIgnoreCase("Submit")) {
-
+            Main.overallScoreGlobal = Main.overallScoreGlobal + score;
+            Main.writingScoreGlobal=score;
             SwapScreen swap = new SwapScreen();
+
             try {
-                Main.overallScoreGlobal = Main.overallScoreGlobal + score;
-                Main.spellingScoreGlobal = score;
+
+               // Main.spellingScoreGlobal = score;
                 //save timer current values to global variables and to the next screen
                 Main.remainingTime = timeSeconds;
 
                 timeline.stop();
+               // Main.overallScoreGlobal=Main.overallScoreGlobal+score;
+
                 swap.changeScene("Views/Scorecard.fxml", content);
             } catch (IOException e) {
                 e.printStackTrace();

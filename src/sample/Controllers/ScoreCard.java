@@ -15,7 +15,7 @@ import java.util.ResourceBundle;
 public class ScoreCard implements Initializable
 {
     @FXML
-    private Label matLbl,imgLbl,overAllscoreLbl,ListeningLbl,spellLbl;
+    private Label matLbl,imgLbl,overAllscoreLbl,ListeningLbl,spellLbl,writelbl;
 
     @FXML
     private BarChart<?, ?> barChart;
@@ -34,6 +34,7 @@ public class ScoreCard implements Initializable
         imgLbl.setText(String.valueOf(Main.imageScoreGlobal));
         ListeningLbl.setText(String.valueOf(Main.listeningScoreGlobal));
         spellLbl.setText(String.valueOf(Main.spellingScoreGlobal));
+        writelbl.setText(String.valueOf(Main.writingScoreGlobal));
         //System.out.println(overallScore);
         XYChart.Series series1 = new XYChart.Series<>();
         series1.setName("Exam Scores");

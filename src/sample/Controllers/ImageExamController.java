@@ -119,7 +119,7 @@ public class ImageExamController implements Initializable {
 
             SwapScreen swap = new SwapScreen();
             try {
-                swap.changeScene("Views/Home.fxml", content);
+                swap.changeScene("Views/ListeningExam.fxml", content);
             } catch (IOException e) {
                 e.printStackTrace();
             }

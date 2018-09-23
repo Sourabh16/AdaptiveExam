@@ -189,7 +189,7 @@ public class SpellingExamController implements Initializable {
                 //save timer current values to global variables and to the next screen
                 Main.remainingTime=timeSeconds;
                 timeline.stop();
-                swap.changeScene("sample/Views/writing.fxml", content);
+                swap.changeScene("Views/writing.fxml", content);
             } catch (IOException e) {
                 e.printStackTrace();
             }
