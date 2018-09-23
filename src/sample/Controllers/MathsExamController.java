@@ -1,5 +1,7 @@
 package sample.Controllers;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,8 +14,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import sample.Main;
-import sample.Utility.*;
+import sample.Utility.Helper;
+import sample.Utility.dbconnection;
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,208 +28,178 @@ import java.util.ResourceBundle;
 public class MathsExamController implements Initializable {
 
     @FXML
-    private Label qLabel;
-
-    @FXML
-    private Label qType;
-
-    @FXML
-    private Label qCount,scoreLbl;
-
+    private Label qLabel, qType, qCount, scoreLbl, lblTimer;
     @FXML
     private AnchorPane content;
-
-    private int score=0,mathsScore=0,queCount=0,overallScore=0;
-
+    private int score = 0, mathsScore = 0, queCount = 0, overallScore = 0;
     @FXML
     private TextField answerTbox;
     @FXML
     private Button nxtButton;
-
-    private String QueryMed="Select Top 1 * from Maths where QType='Medium' order by newid()";
-    private String QueryEasy="Select Top 1 * from Maths where QType='Easy' order by newid()";
-    private String QueryHard="Select Top 1 * from Maths where QType='Hard' order by newid()";
+    private String QueryMed = "Select Top 1 * from Maths where QType='Medium' order by newid()";
+    private String QueryEasy = "Select Top 1 * from Maths where QType='Easy' order by newid()";
+    private String QueryHard = "Select Top 1 * from Maths where QType='Hard' order by newid()";
     private ResultSet rs;
+    private Timeline timeline;
+    private Integer timeSeconds = Main.STARTTIME;
 
-    public void store()
-    {
-        Main.overallScoreGlobal=Integer.parseInt(scoreLbl.getText());
-        Main.mathsScoreGlobal=Integer.parseInt(scoreLbl.getText());
+
+    public void store() {
+        Main.overallScoreGlobal = Integer.parseInt(scoreLbl.getText());
+        Main.mathsScoreGlobal = Integer.parseInt(scoreLbl.getText());
     }
 
     @FXML
-    public void MediumQue()
-    {
-        dbconnection db=new dbconnection();
+    private void MediumQue() {
+        dbconnection db = new dbconnection();
         try {
 
-            rs=db.dbExecuteQuery(QueryMed);
-            if(rs.next()) {
+            rs = db.dbExecuteQuery(QueryMed);
+            if (rs.next()) {
 
                 qLabel.setText(rs.getString("Question"));
                 qType.setText(rs.getString("QType"));
                 qType.setTextFill(Color.web("Blue"));
                 answerTbox.clear();
                 queCount++;
-                qCount.setText("Question."+String.valueOf(queCount)+":");
+                qCount.setText("Question." + String.valueOf(queCount) + ":");
                 scoreLbl.setText(String.valueOf(score));
-                if(queCount==4)
-                {
+                if (queCount == 4) {
                     nxtButton.setText("Submit");
                 }
 
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
     }
 
-    public boolean MatchAnswer()
-    {
-        dbconnection db=new dbconnection();
+    private boolean MatchAnswer() {
+        dbconnection db = new dbconnection();
         try {
-            String query="select * from Maths where Question='"+qLabel.getText()+"'";
-            rs=db.dbExecuteQuery(query);
-            if(rs.next())
-            {
+            String query = "select * from Maths where Question='" + qLabel.getText() + "'";
+            rs = db.dbExecuteQuery(query);
+            if (rs.next()) {
 
-                if(answerTbox.getText().equals(rs.getString("Answer")))
-                {
-                    return true;
-                }
-                else {return false;}
+                return answerTbox.getText().equals(rs.getString("Answer"));
 
 
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    public void EasyQue()
-    {
-        dbconnection db=new dbconnection();
+    private void EasyQue() {
+        dbconnection db = new dbconnection();
         try {
 
-            rs=db.dbExecuteQuery(QueryEasy);
-            if(rs.next()) {
+            rs = db.dbExecuteQuery(QueryEasy);
+            if (rs.next()) {
 
                 qLabel.setText(rs.getString("Question"));
                 qType.setText(rs.getString("QType"));
                 qType.setTextFill(Color.web("Green"));
                 answerTbox.clear();
                 queCount++;
-                qCount.setText("Question."+String.valueOf(queCount)+":");
+                qCount.setText("Question." + String.valueOf(queCount) + ":");
                 scoreLbl.setText(String.valueOf(score));
-                if(queCount==4)
-                {
+                if (queCount == 4) {
                     nxtButton.setText("Submit");
                 }
 
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
     }
 
-    public void HardQue()
-    {
-        dbconnection db=new dbconnection();
+    private void HardQue() {
+        dbconnection db = new dbconnection();
         try {
 
-            rs=db.dbExecuteQuery(QueryHard);
-            if(rs.next()) {
+            rs = db.dbExecuteQuery(QueryHard);
+            if (rs.next()) {
 
                 qLabel.setText(rs.getString("Question"));
                 qType.setText(rs.getString("QType"));
                 qType.setTextFill(Color.web("Red"));
                 answerTbox.clear();
                 queCount++;
-                qCount.setText("Question."+String.valueOf(queCount)+":");
+                qCount.setText("Question." + String.valueOf(queCount) + ":");
                 scoreLbl.setText(String.valueOf(score));
-                if(queCount==4)
-                {
+                if (queCount == 4) {
                     nxtButton.setText("Submit");
                 }
 
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
     }
 
     @FXML
-    private void changeQuestion (ActionEvent actionEvent)
-    {
-        if(qType.getText().equals("Easy") && nxtButton.getText().equals("Next"))
-        {
-            if(MatchAnswer())
-            {
+    private void changeQuestion(ActionEvent actionEvent) {
+        if (qType.getText().equals("Easy") && nxtButton.getText().equals("Next")) {
+            if (MatchAnswer()) {
                 score += 2;
 
                 MediumQue();
+            } else {
+                EasyQue();
             }
-            else{EasyQue();}
-        }
-
-        else if(qType.getText().equals("Medium")&& nxtButton.getText().equals("Next"))
-        {
-            if(MatchAnswer())
-            {
+        } else if (qType.getText().equals("Medium") && nxtButton.getText().equals("Next")) {
+            if (MatchAnswer()) {
                 score += 5;
 
                 HardQue();
+            } else {
+                EasyQue();
             }
-            else{EasyQue();}
-        }
-        else if(qType.getText().equals("Hard")&& nxtButton.getText().equals("Next"))
-        {
-            if(MatchAnswer())
-            {
+        } else if (qType.getText().equals("Hard") && nxtButton.getText().equals("Next")) {
+            if (MatchAnswer()) {
                 score += 10;
 
                 HardQue();
+            } else {
+                MediumQue();
             }
-            else{MediumQue();}
 
-        }
-        else if(nxtButton.getText().equals("Submit"))
-        {
-            if(qType.getText().equals("Easy")) {
-                if (MatchAnswer()) {
-                    score += 2;
-                }
+        } else if (nxtButton.getText().equals("Submit")) {
+            switch (qType.getText()) {
+                case "Easy":
+                    if (MatchAnswer()) {
+                        score += 2;
+                    }
+                    break;
+                case "Medium":
+                    if (MatchAnswer()) {
+                        score += 5;
+                    }
+                    break;
+                case "Hard":
+                    if (MatchAnswer()) {
+                        score += 10;
+                    }
+                    break;
             }
-            else if(qType.getText().equals("Medium")) {
-                if (MatchAnswer()) {
-                    score += 5;
-                }
-            }
-            else if(qType.getText().equals("Hard")) {
-                if (MatchAnswer())
-                {   score += 10;}
-            }
-            Main.overallScoreGlobal=score;
-            Main.mathsScoreGlobal=score;
+            Main.overallScoreGlobal = score;
+            Main.mathsScoreGlobal = score;
             //SwapScreen swap=new SwapScreen();
+
+            //save timer current values to global variables and to the next screen
+            Main.remainingTime = timeSeconds;
+            timeline.stop();
             try {
                 FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/ImageExam.fxml"));
                 Parent pa = (AnchorPane) loader.load();
-                ImageExamController out=new ImageExamController();
-                out=loader.getController();
-                out.vault(Main.overallScoreGlobal,Main.mathsScoreGlobal);
+                ImageExamController out = new ImageExamController();
+                out = loader.getController();
+                out.vault(Main.overallScoreGlobal, Main.mathsScoreGlobal);
                 Scene newScene = new Scene(pa);
                 Stage newStage = (Stage) content.getScene().getWindow();
                 newStage.setScene(newScene);
@@ -240,10 +214,31 @@ public class MathsExamController implements Initializable {
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources)
-    {
+    public void initialize(URL location, ResourceBundle resources) {
 
+        lblTimer.setText(Helper.ConvertSecondToHHMMSSString(timeSeconds));
         MediumQue();
+        getTimerData();
+    }
 
+    /**
+     * properties for timer
+     */
+    private void getTimerData() {
+        timeline = new Timeline();
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        // KeyFrame event handler
+        timeline.getKeyFrames().add(
+                new KeyFrame(Duration.seconds(1),
+                        event -> {
+                            timeSeconds--;
+                            // update timerLabel
+                            lblTimer.setText(Helper.ConvertSecondToHHMMSSString(timeSeconds));
+                            if (timeSeconds <= 0) {
+                                timeline.stop();
+                                System.out.println("main timer stopped");
+                            }
+                        }));
+        timeline.playFromStart();
     }
 }

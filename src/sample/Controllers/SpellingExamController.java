@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import sample.Main;
 import sample.Utility.FileUtility;
+import sample.Utility.Helper;
 import sample.Utility.SwapScreen;
 
 import java.io.IOException;
@@ -31,9 +32,12 @@ public class SpellingExamController implements Initializable {
     private static final String NEXT = "Next";
     private Timeline tenSecondsHelpTimer;
     private boolean isHelpUsed = false;
+    private Timeline timeline;
+    private Integer timeSeconds = Main.remainingTime;
+
 
     @FXML
-    private Label qLabel, qType, scoreLbl, lblSpellHint,overallLbl,mathslbl,imgScoreLbl,ListeningLbl;
+    private Label qLabel, qType, scoreLbl, lblSpellHint, overallLbl, mathslbl, imgScoreLbl, ListeningLbl, lblTimer;
     @FXML
     private AnchorPane content;
     private int score = 0, queCount = 0;
@@ -51,6 +55,10 @@ public class SpellingExamController implements Initializable {
             mathslbl.setText(String.valueOf(Main.mathsScoreGlobal));
             imgScoreLbl.setText(String.valueOf(Main.imageScoreGlobal));
             ListeningLbl.setText(String.valueOf(Main.listeningScoreGlobal));
+
+            lblTimer.setText(Helper.ConvertSecondToHHMMSSString(timeSeconds));
+            getTimerData();
+
             tenSecondsHelpTimer = new Timeline(new KeyFrame(Duration.seconds(20),
                     event -> {
                         System.out.println("this is 30 seconds help timer");
@@ -64,6 +72,23 @@ public class SpellingExamController implements Initializable {
         } catch (IOException e) {
             System.out.println("e = " + e);
         }
+    }
+    private void getTimerData() {
+        timeline = new Timeline();
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        // KeyFrame event handler
+        timeline.getKeyFrames().add(
+                new KeyFrame(Duration.seconds(1),
+                        event -> {
+                            timeSeconds--;
+                            // update timerLabel
+                            lblTimer.setText(Helper.ConvertSecondToHHMMSSString(timeSeconds));
+                            if (timeSeconds <= 0) {
+                                timeline.stop();
+                                System.out.println("timer stopped");
+                            }
+                        }));
+        timeline.playFromStart();
     }
 
     @FXML
@@ -89,20 +114,20 @@ public class SpellingExamController implements Initializable {
         boolean answerResult = false;
         switch (questionLevel) {
             case EASY:
-                    for (String spellWord : spellWordsList)
-                    if (spellWord.toLowerCase().trim().charAt(0)=='g' &&spellWord.trim().equalsIgnoreCase(answer)) {
+                for (String spellWord : spellWordsList)
+                    if (spellWord.toLowerCase().trim().charAt(0) == 'g' && spellWord.trim().equalsIgnoreCase(answer)) {
                         answerResult = true;
                     }
                 break;
             case MEDIUM:
                 for (String spellWord : spellWordsList)
-                    if (spellWord.toLowerCase().trim().charAt(0)=='j' &&spellWord.trim().equalsIgnoreCase(answer)) {
+                    if (spellWord.toLowerCase().trim().charAt(0) == 'j' && spellWord.trim().equalsIgnoreCase(answer)) {
                         answerResult = true;
                     }
                 break;
             case HARD:
                 for (String spellWord : spellWordsList)
-                    if (spellWord.toLowerCase().trim().charAt(0)=='z' &&spellWord.trim().equalsIgnoreCase(answer)) {
+                    if (spellWord.toLowerCase().trim().charAt(0) == 'z' && spellWord.trim().equalsIgnoreCase(answer)) {
                         answerResult = true;
                     }
                 break;
@@ -159,9 +184,12 @@ public class SpellingExamController implements Initializable {
 
             SwapScreen swap = new SwapScreen();
             try {
-                Main.overallScoreGlobal=Main.overallScoreGlobal+score;
-                Main.spellingScoreGlobal=score;
-                swap.changeScene("Views/Scorecard.fxml", content);
+                Main.overallScoreGlobal = Main.overallScoreGlobal + score;
+                Main.spellingScoreGlobal = score;
+                //save timer current values to global variables and to the next screen
+                Main.remainingTime=timeSeconds;
+                timeline.stop();
+                swap.changeScene("sample/Views/writing.fxml", content);
             } catch (IOException e) {
                 e.printStackTrace();
             }

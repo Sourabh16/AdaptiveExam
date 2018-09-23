@@ -1,7 +1,5 @@
 package sample.Utility;
 
-import java.time.LocalTime;
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.concurrent.Task;
@@ -13,34 +11,45 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+import java.time.LocalTime;
+
 // TODO: Auto-generated Javadoc
+
 /**
  * The Class DigitalClock.
  */
 public class DigitalClock extends StackPane {
 
-    /** The canvas. */
+    /**
+     * The canvas.
+     */
     Canvas canvas = new Canvas();
 
-    /** The gc. */
+    /**
+     * The gc.
+     */
     GraphicsContext gc = canvas.getGraphicsContext2D();
 
-    /** The text. */
+    /**
+     * The text.
+     */
     Text text = new Text("");
 
-    /** The time now. */
+    /**
+     * The time now.
+     */
     StringProperty timeNow = new SimpleStringProperty();
 
     /**
      * Instantiates a new digital clock.
      *
-     * @param x the x
-     * @param d the d
-     * @param width the width
+     * @param x      the x
+     * @param d      the d
+     * @param width  the width
      * @param height the height
      */
     // Constructor
-    public  DigitalClock(int x, double d, int width, int height) {
+    public DigitalClock(int x, double d, int width, int height) {
 
         // ��������� �������������
         setLayoutX(x);
@@ -59,7 +68,7 @@ public class DigitalClock extends StackPane {
         paintClock();
         new Thread(new Task<Void>() {
             @Override
-            protected  Void call() throws Exception {
+            protected Void call() throws Exception {
                 LocalTime time = LocalTime.now();
                 while (true) {
                     time = LocalTime.now();
@@ -75,7 +84,7 @@ public class DigitalClock extends StackPane {
     /**
      * Paint clock.
      */
-    private  void paintClock() {
+    private void paintClock() {
 
         // Clear Rect
         gc.clearRect(0, 0, getWidth(), getHeight());
@@ -91,7 +100,7 @@ public class DigitalClock extends StackPane {
      * @return the string
      */
     // ��������� �������� ��� ������ ����� <10
-    private  String zero(int number) {
+    private String zero(int number) {
         return (number < 10) ? "0" + number : "" + number;
     }
 
