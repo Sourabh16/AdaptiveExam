@@ -265,7 +265,7 @@ private MediaPlayer audioPlayer;
                     if (MatchAnswer(answer))
                     {   score += 10;}
                 }
-                store();
+                //store();
                 SwapScreen swap = new SwapScreen();
                 try {
                     Main.listeningScoreGlobal=score;

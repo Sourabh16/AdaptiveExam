@@ -59,7 +59,7 @@ public class ImageExamController implements Initializable {
     public void store()
     {
 
-        Main.overallScoreGlobal=Integer.parseInt(overAllScoreLbl.getText())+score;
+        Main.overallScoreGlobal=Main.overallScoreGlobal+score;
         Main.mathsScoreGlobal=Integer.parseInt(mathsScoreLbl.getText());
         Main.imageScoreGlobal=Integer.parseInt(scoreLbl.getText());
     }
@@ -77,6 +77,10 @@ public class ImageExamController implements Initializable {
     {
         if(queCount==5)
         {
+            Main.overallScoreGlobal=Main.overallScoreGlobal+score;
+            Main.mathsScoreGlobal=Integer.parseInt(mathsScoreLbl.getText());
+            Main.imageScoreGlobal=score;
+
             SwapScreen swap=new SwapScreen();
             try {
                 swap.changeScene("Views/ListeningExam.fxml",content);
@@ -122,6 +126,10 @@ public class ImageExamController implements Initializable {
     {
         if(queCount==5)
         {
+            Main.overallScoreGlobal=Main.overallScoreGlobal+score;
+            Main.mathsScoreGlobal=Integer.parseInt(mathsScoreLbl.getText());
+            Main.imageScoreGlobal=score;
+
             SwapScreen swap=new SwapScreen();
             try {
                 swap.changeScene("Views/Home.fxml",content);
@@ -147,7 +155,7 @@ public class ImageExamController implements Initializable {
                 // Setting the image view
                 Imageview2.setImage(image2);
                 qType.setText(rs.getString("QType"));
-                qType.setTextFill(Color.web("RED"));
+                qType.setTextFill(Color.web("Green"));
 
                 qCount.setText("Question."+String.valueOf(queCount)+":");
                 scoreLbl.setText(String.valueOf(score));
@@ -165,7 +173,10 @@ public class ImageExamController implements Initializable {
     {
         if(queCount==5)
         {
-            store();
+            Main.overallScoreGlobal=Main.overallScoreGlobal+score;
+            Main.mathsScoreGlobal=Integer.parseInt(mathsScoreLbl.getText());
+            Main.imageScoreGlobal=score;
+
             SwapScreen swap=new SwapScreen();
             try {
                 FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/ListeningExam.fxml"));
@@ -199,7 +210,7 @@ public class ImageExamController implements Initializable {
                 // Setting the image view
                 Imageview2.setImage(image2);
                 qType.setText(rs.getString("QType"));
-                qType.setTextFill(Color.web("Blue"));
+                qType.setTextFill(Color.web("RED"));
 
                 qCount.setText("Question."+String.valueOf(queCount)+":");
                 scoreLbl.setText(String.valueOf(score));

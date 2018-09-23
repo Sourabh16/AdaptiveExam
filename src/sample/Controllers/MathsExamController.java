@@ -217,7 +217,8 @@ public class MathsExamController implements Initializable {
                 if (MatchAnswer())
                 {   score += 10;}
             }
-            store();
+            Main.overallScoreGlobal=score;
+            Main.mathsScoreGlobal=score;
             //SwapScreen swap=new SwapScreen();
             try {
                 FXMLLoader loader = new FXMLLoader(Main.class.getResource("Views/ImageExam.fxml"));

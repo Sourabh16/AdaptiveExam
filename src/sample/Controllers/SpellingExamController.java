@@ -167,7 +167,6 @@ public class SpellingExamController implements Initializable {
             }
         }
         scoreLbl.setText(String.valueOf(score));
-        isHelpUsed=false;
     }
 
     private void getSuggestion() {
